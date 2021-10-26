@@ -1,14 +1,19 @@
 module Mutations
   class CreatePost < BaseMutation
-    # TODO: define return fields
-    # field :post, Types::PostType, null: false
+    graphql_name 'CreatePost'
 
-    # TODO: define arguments
-    # argument :name, String, required: true
+    field :post, Types::PostType, null: true
+    field :result, Boolean, null: true
 
-    # TODO: define resolve method
-    # def resolve(name:)
-    #   { post: ... }
-    # end
+    argument :title, String, required: false
+    argument :description, String, required: false
+
+    def resolve(**args)
+      post = Post.create(title: args[:title], description: args[:description])
+      {
+        post: post,
+        result: post.errors.blank?
+      }
+    end
   end
 end
