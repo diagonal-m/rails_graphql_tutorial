@@ -53,5 +53,17 @@ module Types
         { name: 'December',  days: 31 }
       ]
     end
+
+    field :user, UserType, null: false, description: 'ユーザ情報(id指定で1件)' do
+      argument :id, Int, 'ユーザid', required: true
+    end
+    def user(id:)
+      User.find_by(id: id)
+    end
+
+    field :users, [UserType], null: false, description: 'ユーザ情報(全件)'
+    def users
+      User.all
+    end
   end
 end
