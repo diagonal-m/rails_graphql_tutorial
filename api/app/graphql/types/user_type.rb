@@ -8,9 +8,6 @@ module Types
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
     field :full_name, String, null: false, description: '姓名'
-    def full_name
-      object.last_name + ' ' + object.first_name
-    end
 
     field :created_at, String, null: false, description: '作成日時'
     def created_at
